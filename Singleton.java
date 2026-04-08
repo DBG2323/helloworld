@@ -1,19 +1,13 @@
 public class Singleton {
 
-    // volatile 防止指令重排序
-    private static volatile Singleton instance;
-
     private Singleton() {}
 
+    private static class Holder {
+        static final Singleton INSTANCE = new Singleton();
+    }
+
     public static Singleton getInstance() {
-        if (instance == null) {
-            synchronized (Singleton.class) {
-                if (instance == null) {
-                    instance = new Singleton();
-                }
-            }
-        }
-        return instance;
+        return Holder.INSTANCE;
     }
 
     public void doSomething() {
